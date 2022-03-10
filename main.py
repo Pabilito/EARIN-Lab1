@@ -1,6 +1,6 @@
 from CalculateGradient import *
 from CalculateNewton import *
-#According to vscode 'Import "CalculateF" could not be resolved', however, it works fine for me.
+#According to vscode 'Import "CalculateGradient" could not be resolved', however, it works fine for me.
 
 #For aesthetic purposes.
 line = "-------------------------------------------------------------------"

@@ -1,5 +1,5 @@
-def CalculateF(vers, iter, stopc, stopv):
+def CalculateNewton(func, vers, iter, stopc, stopv):
 
-    print("FFF")
+    print("Newton")
 
     return
