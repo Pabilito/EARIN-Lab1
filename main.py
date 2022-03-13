@@ -32,7 +32,7 @@ def Main():
                 continue
             while(1): #I don't want to make user input F/G once again in case of error
                 print(line)
-                print('Write "1" to choose initial vector version')
+                print('Write "1" to choose initial vector/value version')
                 print('Write "2" to choose uniform distribution version')
                 print('Write "BACK" to go back') #Allows user to go one step back to choose different option in case of an error
                 print(line)
