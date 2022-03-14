@@ -72,4 +72,7 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
         b = GetMatrixFromUser("Please provide b (d values) [float]", d, 1, False)
         A = GetMatrixFromUser("Please provide A positive-definite matrux (d x d values) [float]", d, d, True)
         #Do G function
+        currentY = c + np.matmul(np.transpose(b), x) + np.matmul(np.matmul(np.transpose(x), A), x)
+        currentY = currentY.item(0)
+        print(currentY)
         return
