@@ -2,23 +2,34 @@ import numpy as np
 #For aesthetic purposes
 line = "-------------------------------------------------------------------"
 
-def GetMatrixFromUser(message, rows, columns):   
+def IsPositiveDefinite(mat):
+    ret = np.all(np.linalg.eigvals(mat > 0)) #Check if matrix is positive definite by assessing its eigenvalues
+    if (not ret):
+        print("Matrix is not positive definite. Please write matrix values once again.")
+    return ret
+
+def GetMatrixFromUser(message, rows, columns, checkIfPositiveDefinite):   
     mat = np.empty([rows, columns])
     print(line)
     print(message)
     print(line)
-    for i in range(rows):
-        for j in range(columns):
-            print('Please write value for cell: [', i, '][', j, ']')
-            while(1):
-                val = input()
-                try: # Is the input a float?
-                    val = float(val)
-                    break 
-                except:
-                    print('Number could not be accepted, choose again!')
-                continue
-            mat.itemset((i, j), val)
+    firstIterationGuardian = True
+    while(checkIfPositiveDefinite or firstIterationGuardian):
+        firstIterationGuardian = False      #Kind of inefficient 
+        for i in range(rows):
+            for j in range(columns):
+                print('Please write value for cell: [', i, '][', j, ']')
+                while(1):
+                    val = input()
+                    try: # Is the input a float?
+                        val = float(val)
+                        break 
+                    except:
+                        print('Number could not be accepted, choose again!')
+                    continue
+                mat.itemset((i, j), val)
+        if(checkIfPositiveDefinite):
+            checkIfPositiveDefinite = not IsPositiveDefinite(mat)
     return mat
 
 def GetIntFromUser(message):
