@@ -10,7 +10,7 @@ def Main():
     print(UserAnswers) # Just to see if everyting is ok.
     #Here we can call function to calculate F/G
 
-    UserAnswers = ['1', 'F', '1', 2, '1', 10.0]     #Values only for the testing purposes
+    UserAnswers = ['1', 'G', '1', 2, '1', 10.0]     #Values only for the testing purposes
     if(UserAnswers[0] == '2'):
         CalculateNewton(UserAnswers[1], UserAnswers[2], UserAnswers[3], UserAnswers[4], UserAnswers[5])
     else:
