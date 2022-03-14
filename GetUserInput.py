@@ -1,4 +1,5 @@
 import numpy as np
+import random
 #For aesthetic purposes
 line = "-------------------------------------------------------------------"
 
@@ -7,6 +8,33 @@ def IsPositiveDefinite(mat):
     if (not ret):
         print("Matrix is not positive definite. Please write matrix values once again.")
     return ret
+
+def GetRandomizedMatrixFromUser(message, rows):
+    mat = np.empty([rows, 1])
+    print(line)
+    print(message)
+    print(line)
+    for i in range(rows):
+        print('Please write min value for cell: [', i, '][1]')
+        while(1):
+            valmin = input()
+            try: # Is the input a float?
+                valmin = float(valmin)
+                break 
+            except:
+                print('Number could not be accepted, choose again!')
+            continue
+        print('Please write max value for cell: [', i, '][1]')
+        while(1):
+            valmax = input()
+            try: # Is the input a float?
+                valmax = float(valmax)
+                break 
+            except:
+                print('Number could not be accepted, choose again!')
+            continue
+        mat.itemset((i, 1), random.uniform(valmin, valmax))
+    return mat
 
 def GetMatrixFromUser(message, rows, columns, checkIfPositiveDefinite):   
     mat = np.empty([rows, columns])

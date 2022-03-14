@@ -9,6 +9,10 @@ def GetGradientF(a, b, c, x):
     #So derivative is 3ax^2+2bx+c
     return 3*a*x*x+2*b*x+c
 
+def GetGradientG(b, A ,x):
+    #Derivative is b + A*x + At*x
+    return (b + np.matmul(A,x) + np.matmul(np.transpose(A),x))
+
 def StopConditionMet(stopC, stopV, iterations, execTime, currentY):
     if((stopC == '1' and iterations == stopV)
     or (stopC == '2' and currentY <= stopV)
@@ -51,7 +55,6 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
                 #Check if we can return value
                 currentGradient = GetGradientF(a, b, c, currentX)
                 execTime = time.time() - starttime
-                print(currentX, currentY)
                 if(StopConditionMet(stopc, stopv, iterations, execTime, currentY) or currentGradient == 0):
                     print('Minimum found at: (',currentX,',',currentY,')') 
                     valuesX.append(currentX)
@@ -67,12 +70,31 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
 
     else:
         c = GetFloatFromUser('Write c coefficaient value [float]')
-        d = GetIntFromUser('Write d size of matrix [int]')
-        x = GetMatrixFromUser("Please provide x (d values) [float]", d, 1, False)
+        d = GetIntFromUser('Write d size of matrix [int]') 
         b = GetMatrixFromUser("Please provide b (d values) [float]", d, 1, False)
         A = GetMatrixFromUser("Please provide A positive-definite matrux (d x d values) [float]", d, d, True)
-        #Do G function
-        currentY = c + np.matmul(np.transpose(b), x) + np.matmul(np.matmul(np.transpose(x), A), x)
-        currentY = currentY.item(0)
-        print(currentY)
+
+        for batchn in range(iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1 
+            if(vers == '1'):                        #Version with specific point
+                x = GetMatrixFromUser("Please provide x (d values) [float]", d, 1, False)
+            else:
+                x = GetRandomizedMatrixFromUser("Please provide min (d values) [float]. Then d max values", d)
+            starttime = time.time()
+            iterations = 0
+            print('Batch mode: ', (batchn+1), '/', iter)     
+            #Based on vers we ask for range.
+            while(1):
+                execTime = time.time() - starttime
+                currentY = c + np.matmul(np.transpose(b), x) + np.matmul(np.matmul(np.transpose(x), A), x)
+                currentY = currentY.item(0)
+                currentGradient = GetGradientG(b,A,x)
+                if(StopConditionMet(stopc, stopv, iterations, execTime, currentY) or currentGradient.all() == 0):
+                    print('Minimum found at: (', x ,',', currentY, ')') 
+                    valuesX.append(x)
+                    valuesY.append(currentY)
+                    break
+                iterations += 1
+                #Do G function
+                x = x - step * currentGradient #Calculate gradient for matrix and apply it 
+
         return
