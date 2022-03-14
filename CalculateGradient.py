@@ -1,7 +1,6 @@
 import random
+from GetUserInput import *
 
-#For aesthetic purposes
-line = "-------------------------------------------------------------------"
 step = 0.01 #The lower the vale the more precise the calculations, but the longer execution time.
             #Requirements do not say that it has to be provided by the user.
 iterations = 0       #For stopping conditions
@@ -9,19 +8,6 @@ execTime = 0         #For stopping conditions
 currentY = 0         #For stopping conditions
 valuesX = []         #For batch mode data storage
 valuesY = []         #For batch mode data storage
-
-def GetFloatFromUser(message):
-    while(1):
-        print(line)
-        print(message)
-        retVal = input()
-        try: # Is the input a float?
-            retVal = float(retVal)
-            print(line) 
-            return retVal
-        except:
-            print('Number could not be accepted, choose again!')
-            continue  
 
 def GetGradientF(a, b, c, x):
     #ax^3+bx^2+cx+d
@@ -66,7 +52,7 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
                         print('Minimum found at: ('+currentX+','+currentY+')') 
                         valuesX.append(currentX)
                         valuesY.append(currentY)
-                        continue
+                        break
                     currentX = currentX - step * currentGradient #Gradient descent done here
         #CALCULATE MEAN AND STD DEVIATION HERE !!!!!!!!!   
         return 
