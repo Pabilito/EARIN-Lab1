@@ -31,11 +31,12 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
         a = GetFloatFromUser('Write a coefficaient value [float]')
         b = GetFloatFromUser('Write b coefficaient value [float]')
         c = GetFloatFromUser('Write c coefficaient value [float]')
-        d = GetFloatFromUser('Write d coefficaient value [float]')
+        d = GetFloatFromUser('Write d coefficaient value [float]')       
         for batchn in range(iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1 
-            print('Batch mode: ' + (batchn+1) + '/' + iter)     
+            print('Iteration' + iter)     
             #Based on vers we ask for range.
             if(vers == '1'):                        #Version with specific point
+                print('test22')
                 currentX = GetFloatFromUser('Write starting X coordinate[float]')
             else:                                   #Version with range
                 currentXmin = GetFloatFromUser('Write starting X minimum coordinate[float]') 

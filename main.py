@@ -5,18 +5,15 @@ from GetUserInput import *
 
 def Main():
     UserAnswers = [0, 0, 0, 0, 0, 0] 
-    AskUser(UserAnswers)                   
+    #AskUser(UserAnswers)                   
     print('Your input was: ')
     print(UserAnswers) # Just to see if everyting is ok.
-    print(line)
     #Here we can call function to calculate F/G
+
+    UserAnswers = ['1', 'F', '1', 2, '1', 10.0]     #Values only for the testing purposes
     if(UserAnswers[0] == '2'):
         CalculateNewton(UserAnswers[1], UserAnswers[2], UserAnswers[3], UserAnswers[4], UserAnswers[5])
     else:
         CalculateGradient(UserAnswers[1], UserAnswers[2], UserAnswers[3], UserAnswers[4], UserAnswers[5])
             
-try:
-    Main()
-except:
-    print('Exception occurred. Restarting programme.') #Wiem, że to dosyć głupie.
-    Main()
+Main()

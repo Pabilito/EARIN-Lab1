@@ -7,8 +7,7 @@ def GetFloatFromUser(message):
         print(message)
         retVal = input()
         try: # Is the input a float?
-            retVal = float(retVal)
-            print(line) 
+            retVal = float(retVal) 
             return retVal
         except:
             print('Number could not be accepted, choose again!')
