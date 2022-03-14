@@ -2,14 +2,13 @@ import numpy as np
 #For aesthetic purposes
 line = "-------------------------------------------------------------------"
 
-def GetMatrixFromUser(message, rows, columns):
-    mat = np.matrix([])
+def GetMatrixFromUser(message, rows, columns):   
+    mat = np.empty([rows, columns])
     print(line)
     print(message)
     print(line)
     for i in range(rows):
         for j in range(columns):
-            tempMat = np.matrix([])
             print('Please write value for cell: [', i, '][', j, ']')
             while(1):
                 val = input()
@@ -19,9 +18,7 @@ def GetMatrixFromUser(message, rows, columns):
                 except:
                     print('Number could not be accepted, choose again!')
                 continue
-            np.append(tempMat, val, axis = 1)
-        np.append(mat, tempMat)
-        tempMat.delete()
+            mat.itemset((i, j), val)
     return mat
 
 def GetIntFromUser(message):

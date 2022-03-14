@@ -68,7 +68,7 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
     else:
         c = GetFloatFromUser('Write c coefficaient value [float]')
         d = GetIntFromUser('Write d size of matrix [int]')
-        x = GetMatrixFromUser("Please provide x (d values) [float]", d, 1)
+        x = GetMatrixFromUser("Please provide x (d values) [float]", int(d), 1)
         print(x)
     #Do G function
         return
