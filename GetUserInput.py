@@ -1,5 +1,40 @@
+import numpy as np
 #For aesthetic purposes
 line = "-------------------------------------------------------------------"
+
+def GetMatrixFromUser(message, rows, columns):
+    mat = np.matrix([])
+    print(line)
+    print(message)
+    print(line)
+    for i in range(rows):
+        for j in range(columns):
+            tempMat = np.matrix([])
+            print('Please write value for cell: [', i, '][', j, ']')
+            while(1):
+                val = input()
+                try: # Is the input a float?
+                    val = float(val)
+                    break 
+                except:
+                    print('Number could not be accepted, choose again!')
+                continue
+            np.append(tempMat, val, axis = 1)
+        np.append(mat, tempMat)
+        tempMat.delete()
+    return mat
+
+def GetIntFromUser(message):
+    while(1):
+        print(line)
+        print(message)
+        retVal = input()
+        try: # Is the input a float?
+            retVal = int(retVal) 
+            return retVal
+        except:
+            print('Number could not be accepted, choose again!')
+            continue
 
 def GetFloatFromUser(message):
     while(1):

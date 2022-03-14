@@ -2,6 +2,7 @@ import random
 import time
 from GetUserInput import *
 import statistics
+import numpy as np
 
 def GetGradientF(a, b, c, x):
     #ax^3+bx^2+cx+d
@@ -65,6 +66,10 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
         return 
 
     else:
+        c = GetFloatFromUser('Write c coefficaient value [float]')
+        d = GetIntFromUser('Write d size of matrix [int]')
+        x = GetMatrixFromUser("Please provide x (d values) [float]", d, 1)
+        print(x)
     #Do G function
         return
 
