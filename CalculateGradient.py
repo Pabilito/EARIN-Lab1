@@ -26,7 +26,6 @@ def GetY(a, b, c, d, x):
     return a*x*x*x+b*x*x+c*x+d
 
 def CalculateGradient(func, vers, iter, stopc, stopv):
-
     if(func == 'F'):
         a = GetFloatFromUser('Write a coefficaient value [float]')
         b = GetFloatFromUser('Write b coefficaient value [float]')
