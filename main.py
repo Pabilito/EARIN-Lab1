@@ -3,9 +3,6 @@ from CalculateNewton import *
 from GetUserInput import *
 #According to vscode 'Import "CalculateGradient" could not be resolved', however, it works fine for me.
 
-#For aesthetic purposes.
-line = "-------------------------------------------------------------------"
-
 def Main():
     UserAnswers = [0, 0, 0, 0, 0, 0] 
     AskUser(UserAnswers)                   
