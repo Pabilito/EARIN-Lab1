@@ -1,6 +1,7 @@
 import random
 import statistics
-from GetUserInput import *
+import GetUserInput as gt
+import time
 
 class OptimizationMethod:
     '''
@@ -30,14 +31,54 @@ class OptimizationMethod:
             self.c = GetFloatFromUser('Write c coefficaient value [float]')
             self.d = GetFloatFromUser('Write d coefficaient value [float]')
         else:
-            print("Given func parameter was incorrect")
+           self.c = gt.GetFloatFromUser('Write c coefficaient value [float]')
+           self.d = gt.GetIntFromUser('Write d size of matrix [int]') 
+           self.b = gt.GetMatrixFromUser("Please provide b (d values) [float]", self.d, 1, False)
+           self.A = gt.GetMatrixFromUser("Please provide A positive-definite matrix (d x d values) [float]", self.d, self.d, True)
 
+
+    def getMatrixRange(self, batchn):
+        '''
+        Based on vers we ask for range of the matrix. We return correct X
+        '''
+        if(self.vers == '1'):                        #Version with specific point
+            x = gt.GetMatrixFromUser("Please provide x (d values) [float]", self.d, 1, False)
+        else:
+            x = GetRandomizedMatrixFromUser("Please provide min (d values) [float]. Then d max values", self.d)
+        return x
+
+    def matrixBatchMode(self):
+        '''
+        Batch mode interface for the matrix operations
+        '''
+        for batchn in range(self.iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1
+            x = self.getMatrixRange(batchn)
+            starttime = time.time()
+            self.iterations = 0
+            print('Batch mode: ', (batchn+1), '/', iter)            
+            while(1):
+                self.execTime = time.time() - starttime
+                currentY = self.c + np.matmul(np.transpose(self.b), x) + np.matmul(np.matmul(np.transpose(x), self.A), x)
+                currentY = currentY.item(0)
+                currentGradient = self.GetGradientG(x)
+                if(self.StopConditionMet(currentY) or currentGradient.all() == 0):
+                    print('Minimum found at: (', x ,',', currentY, ')') 
+                    self.valuesX.append(x)
+                    self.valuesY.append(currentY)
+                    break
+                self.iterations += 1
+                #Do G function
+                x = x - self.step * currentGradient #Calculate gradient for matrix and apply it 
+
+    def GetGradientG(self, x):
+    #Derivative is b + A*x + At*x
+        return (self.b + np.matmul(self.A,x) + np.matmul(np.transpose(self.A),x))
+                
     def getRange(self):
         '''
         Based on vers we ask for range. We return current x.
         '''
         if(self.vers == '1'):
-            print('test22')
             currentX = GetFloatFromUser('Write starting X coordinate[float]')
         else:                                   #Version with range
             currentXmin = GetFloatFromUser('Write starting X minimum coordinate[float]') 
@@ -70,14 +111,12 @@ class OptimizationMethod:
         to be equal 1
         '''
         for batchn in range(self.iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1 
-            print('Iteration' + str(self.iter))     
             self.calculateMethod()
         print('Average x is:' + statistics.mean(self.valuesX))
         print('Average y is:' + statistics.mean(self.valuesY))
         print('Stdev x is:' + statistics.stdev()(self.valuesX))
         print('Stdev y is:' + statistics.stdev()(self.valuesY))
         return 
-
 
     def GetGradientF(self, x):
         #ax^3+bx^2+cx+d
@@ -93,6 +132,9 @@ class OptimizationMethod:
         #ax^3+bx^2+cx+d
         return self.a*x*x*x+self.b*x*x+self.c*x+self.d
 
-method = OptimizationMethod('F', '1', 2, '1', 10.0)
+'''    
+method = OptimizationMethod('a', '1', 2, '1', 10.0)
 method.getUserInput()
 method.batchMode()
+method.matrixBatchMode()
+'''
