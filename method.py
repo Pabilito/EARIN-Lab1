@@ -1,3 +1,4 @@
+import numpy as np
 import random
 import statistics
 import GetUserInput as gt
@@ -52,24 +53,31 @@ class OptimizationMethod:
         Batch mode interface for the matrix operations
         '''
         for batchn in range(self.iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1
-            x = self.getMatrixRange(batchn)
-            starttime = time.time()
-            self.iterations = 0
-            print('Batch mode: ', (batchn+1), '/', iter)            
-            while(1):
-                self.execTime = time.time() - starttime
-                currentY = self.c + np.matmul(np.transpose(self.b), x) + np.matmul(np.matmul(np.transpose(x), self.A), x)
-                currentY = currentY.item(0)
-                currentGradient = self.GetGradientG(x)
-                if(self.StopConditionMet(currentY) or currentGradient.all() == 0):
-                    print('Minimum found at: (', x ,',', currentY, ')') 
-                    self.valuesX.append(x)
-                    self.valuesY.append(currentY)
-                    break
-                self.iterations += 1
-                #Do G function
-                x = x - self.step * currentGradient #Calculate gradient for matrix and apply it 
+            self.calculateMatrixMethod(batchn)
 
+
+    def calculateMatrixMethod(self, batchn):
+        '''
+        Performes optimization with default method on the given matrix.
+        '''
+        x = self.getMatrixRange(batchn)
+        starttime = time.time()
+        self.iterations = 0
+        print('Batch mode: ', (batchn+1), '/', iter)            
+        while(1):
+            self.execTime = time.time() - starttime
+            currentY = self.c + np.matmul(np.transpose(self.b), x) + np.matmul(np.matmul(np.transpose(x), self.A), x)
+            currentY = currentY.item(0)
+            currentGradient = self.GetGradientG(x)
+            if(self.StopConditionMet(currentY) or currentGradient.all() == 0):
+                print('Minimum found at: (', x ,',', currentY, ')') 
+                self.valuesX.append(x)
+                self.valuesY.append(currentY)
+                break
+            self.iterations += 1
+            #Do G function
+            x = x - self.step * currentGradient #Calculate gradient for matrix and apply it
+                
     def GetGradientG(self, x):
     #Derivative is b + A*x + At*x
         return (self.b + np.matmul(self.A,x) + np.matmul(np.transpose(self.A),x))
