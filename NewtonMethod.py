@@ -3,14 +3,15 @@ import numpy as np
 import GetUserInput as gt
 import time
 
-uncertainty = 0.000001
+uncertainty = 0.001
 
 class NewtonsMethod(mt.OptimizationMethod):
-    def __init__(self, func, vers, iter, stopc, stopv):
+    def __init__(self, func, vers, iterek, stopc, stopv):
         '''
         Uses inheritance to get parameters
         '''
-        super().__init__(func, vers, iter, stopc, stopv)
+        super().__init__(func, vers, iterek, stopc, stopv)
+
         
     def calculateMethod(self):
         '''
@@ -64,3 +65,9 @@ class NewtonsMethod(mt.OptimizationMethod):
     #Derivative is b + A*x + At*x
         return (np.transpose(self.A) + self.A)
 
+'''
+method = NewtonsMethod('a', '1', 2, '1', 10.0)
+method.getUserInput()
+method.batchMode()
+method.matrixBatchMode()
+'''

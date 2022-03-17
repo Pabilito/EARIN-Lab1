@@ -8,11 +8,11 @@ class OptimizationMethod:
     '''
     The parent class of the gradient optimization methods
     '''
-    def __init__(self, func, vers, iter, stopc, stopv):
+    def __init__(self, func, vers, iterek, stopc, stopv):
         '''initializes the class'''
         self.func = func
         self.vers = vers
-        self.iter = iter
+        self.iterek = iterek
         self.stopc = stopc
         self.stopv = stopv
         self.valuesX = []         #For batch mode data storage
@@ -20,6 +20,7 @@ class OptimizationMethod:
         self.iterations = 0       #For stopping conditions
         self.execTime = 0         #For stopping conditions
         self.step = 0.01
+        
 
     def getUserInput(self):
         '''
@@ -52,8 +53,12 @@ class OptimizationMethod:
         '''
         Batch mode interface for the matrix operations
         '''
-        for batchn in range(self.iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1
+        for batchn in range(self.iterek):   #Batch mode implementation - if we don't want batch mode, user can simply have iterek = 1
             self.calculateMatrixMethod(batchn)
+        print('Average x is:' + statistics.mean(self.valuesX))
+        print('Average y is:' + statistics.mean(self.valuesY))
+        print('Stdev x is:' + statistics.stdev(self.valuesX))
+        print('Stdev y is:' + statistics.stdev(self.valuesY))
 
 
     def calculateMatrixMethod(self, batchn):
@@ -63,7 +68,7 @@ class OptimizationMethod:
         x = self.getMatrixRange(batchn)
         starttime = time.time()
         self.iterations = 0
-        print('Batch mode: ', (batchn+1), '/', iter)            
+        print('Batch mode: ', (batchn+1), '/', iterek)            
         while(1):
             self.execTime = time.time() - starttime
             currentY = self.c + np.matmul(np.transpose(self.b), x) + np.matmul(np.matmul(np.transpose(x), self.A), x)
@@ -101,12 +106,12 @@ class OptimizationMethod:
         '''
         Performes optimization with default method.
         '''
+        
         currentX = self.getRange()
-        while(1):  #Apply gradient descent in an infinite loop until stopping condition is met or we are at minimum     
-            currentY = self.GetY(currentX)
+        while(1):  #Apply gradient descent in an infinite loop until stopping condition is met or we are at minimum             currentY = self.GetY(currentX)
             #Check if we can return value
             currentGradient = self.GetGradientF(currentX)
-            if(self.StopConditionMet(currentY) or currentGradient == 0):
+            if(self.StopConditionMet(currentY) or abs(currentGradient) <= self.step):
                 print('Minimum found at: ('+currentX+','+currentY+')') 
                 self.valuesX.append(currentX)
                 self.valuesY.append(currentY)
@@ -115,15 +120,15 @@ class OptimizationMethod:
                     
     def batchMode(self):
         '''
-        Stats operating in the batchmode until user change the iter parameter
+        Stats operating in the batchmode until user change the iterek parameter
         to be equal 1
         '''
-        for batchn in range(self.iter):   #Batch mode implementation - if we don't want batch mode, user can simply have iter = 1 
+        for i in range(self.iterek):   #Batch mode implementation - if we don't want batch mode, user can simply have iterek = 1
             self.calculateMethod()
         print('Average x is:' + statistics.mean(self.valuesX))
         print('Average y is:' + statistics.mean(self.valuesY))
-        print('Stdev x is:' + statistics.stdev()(self.valuesX))
-        print('Stdev y is:' + statistics.stdev()(self.valuesY))
+        print('Stdev x is:' + statistics.stdev(self.valuesX))
+        print('Stdev y is:' + statistics.stdev(self.valuesY))
         return 
 
     def GetGradientF(self, x):
@@ -139,6 +144,7 @@ class OptimizationMethod:
     def GetY(self, x):
         #ax^3+bx^2+cx+d
         return self.a*x*x*x+self.b*x*x+self.c*x+self.d
+    
 
 '''    
 method = OptimizationMethod('a', '1', 2, '1', 10.0)
