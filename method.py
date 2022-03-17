@@ -27,10 +27,10 @@ class OptimizationMethod:
         coefficients will be taken
         '''
         if self.func == 'F':
-            self.a = GetFloatFromUser('Write a coefficaient value [float]')
-            self.b = GetFloatFromUser('Write b coefficaient value [float]')
-            self.c = GetFloatFromUser('Write c coefficaient value [float]')
-            self.d = GetFloatFromUser('Write d coefficaient value [float]')
+            self.a = gt.GetFloatFromUser('Write a coefficaient value [float]')
+            self.b = gt.GetFloatFromUser('Write b coefficaient value [float]')
+            self.c = gt.GetFloatFromUser('Write c coefficaient value [float]')
+            self.d = gt.GetFloatFromUser('Write d coefficaient value [float]')
         else:
            self.c = gt.GetFloatFromUser('Write c coefficaient value [float]')
            self.d = gt.GetIntFromUser('Write d size of matrix [int]') 
@@ -45,7 +45,7 @@ class OptimizationMethod:
         if(self.vers == '1'):                        #Version with specific point
             x = gt.GetMatrixFromUser("Please provide x (d values) [float]", self.d, 1, False)
         else:
-            x = GetRandomizedMatrixFromUser("Please provide min (d values) [float]. Then d max values", self.d)
+            x = gt.GetRandomizedMatrixFromUser("Please provide min (d values) [float]. Then d max values", self.d)
         return x
 
     def matrixBatchMode(self):
@@ -87,10 +87,10 @@ class OptimizationMethod:
         Based on vers we ask for range. We return current x.
         '''
         if(self.vers == '1'):
-            currentX = GetFloatFromUser('Write starting X coordinate[float]')
+            currentX = gt.GetFloatFromUser('Write starting X coordinate[float]')
         else:                                   #Version with range
-            currentXmin = GetFloatFromUser('Write starting X minimum coordinate[float]') 
-            currentXmax = GetFloatFromUser('Write starting X maximum coordinate[float]')
+            currentXmin = gt.GetFloatFromUser('Write starting X minimum coordinate[float]') 
+            currentXmax = gt.GetFloatFromUser('Write starting X maximum coordinate[float]')
             if(currentXmax<currentXmin):      #If somebody made a mistake and has max<min, I will not ask him again
                 currentX = random.uniform(currentXmax, currentXmin)
             else:
