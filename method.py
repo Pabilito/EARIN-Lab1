@@ -55,10 +55,11 @@ class OptimizationMethod:
         '''
         for batchn in range(self.iterek):   #Batch mode implementation - if we don't want batch mode, user can simply have iterek = 1
             self.calculateMatrixMethod(batchn)
-        print('Average x is:' + statistics.mean(self.valuesX))
-        print('Average y is:' + statistics.mean(self.valuesY))
-        print('Stdev x is:' + statistics.stdev(self.valuesX))
-        print('Stdev y is:' + statistics.stdev(self.valuesY))
+        if(iterek>=2):   #to avoid calculations for non-batch mode
+            print('Average x is:' + statistics.mean(self.valuesX))
+            print('Average y is:' + statistics.mean(self.valuesY))
+            print('Stdev x is:' + statistics.stdev(self.valuesX))
+            print('Stdev y is:' + statistics.stdev(self.valuesY))
 
 
     def calculateMatrixMethod(self, batchn):
@@ -125,10 +126,11 @@ class OptimizationMethod:
         '''
         for i in range(self.iterek):   #Batch mode implementation - if we don't want batch mode, user can simply have iterek = 1
             self.calculateMethod()
-        print('Average x is:' + statistics.mean(self.valuesX))
-        print('Average y is:' + statistics.mean(self.valuesY))
-        print('Stdev x is:' + statistics.stdev(self.valuesX))
-        print('Stdev y is:' + statistics.stdev(self.valuesY))
+        if(iterek>=2):   #to avoid calculations for non-batch mode
+            print('Average x is:' + statistics.mean(self.valuesX))
+            print('Average y is:' + statistics.mean(self.valuesY))
+            print('Stdev x is:' + statistics.stdev(self.valuesX))
+            print('Stdev y is:' + statistics.stdev(self.valuesY))
         return 
 
     def GetGradientF(self, x):

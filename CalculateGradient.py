@@ -62,11 +62,11 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
                     break
                 currentX = currentX - step * currentGradient #Gradient descent done here
                 iterations += 1
-            if(iter>=2):   #to avoid calculations for non-batch mode
-                print('Average x is: ', statistics.mean(valuesX))
-                print('Average y is: ', statistics.mean(valuesY))
-                print('Stdev x is: ', statistics.stdev(valuesX))
-                print('Stdev y is: ', statistics.stdev(valuesY))
+        if(iter>=2):   #to avoid calculations for non-batch mode
+            print('Average x is: ', statistics.mean(valuesX))
+            print('Average y is: ', statistics.mean(valuesY))
+            print('Stdev x is: ', statistics.stdev(valuesX))
+            print('Stdev y is: ', statistics.stdev(valuesY))
         return 
 
     else:
@@ -97,9 +97,9 @@ def CalculateGradient(func, vers, iter, stopc, stopv):
                 iterations += 1
                 #Do G function
                 x = x - step * currentGradient #Calculate gradient for matrix and apply it 
-            if(iter>=2):   #to avoid calculations for non-batch mode
-                print('Average x is: ', statistics.mean(valuesX))
-                print('Average y is: ', statistics.mean(valuesY))
-                print('Stdev x is: ', statistics.stdev(valuesX))
-                print('Stdev y is: ', statistics.stdev(valuesY))
+        if(iter>=2):   #to avoid calculations for non-batch mode
+            print('Average x is: ', statistics.mean(valuesX))
+            print('Average y is: ', statistics.mean(valuesY))
+            print('Stdev x is: ', statistics.stdev(valuesX))
+            print('Stdev y is: ', statistics.stdev(valuesY))
         return

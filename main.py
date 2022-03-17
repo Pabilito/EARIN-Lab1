@@ -32,8 +32,7 @@ method.batchMode()
 
 #Important notices
 '''
-0) Both teammates are currently on the Athens exchange since last friday, which make it hard to create a code on time.
+1) Both teammates are currently on the Athens exchange since last friday, which make it hard to create a code on time.
 
-1) Code crashes for non-batch mode (batch mode with iteration = 1) due to the fact that the average is being calculated for one x value only, despite the fact that there was an attempt to prevent that.
-2) For the Newton's method there is a need to call the function F explicitly (as in commented part above), as otherwise the program crashes miraclously.
+0) The Newton's method might be divergent and in that case program will not stop counting ever.
 '''
