@@ -1,5 +1,7 @@
 import method as mt
+import numpy as np
 import GetUserInput as gt
+import time
 
 uncertainty = 0.000001
 
@@ -34,8 +36,8 @@ class NewtonsMethod(mt.OptimizationMethod):
         '''
         x = self.getMatrixRange(batchn)
         starttime = time.time()
-        self.iterations = 0
-        print('Batch mode: ', (batchn+1), '/', iter)            
+        self.iterations = 1
+        print('Batch mode: ', (batchn+1), '/', self.iterations)            
         while(1):
             self.execTime = time.time() - starttime
             currentY = self.c + np.matmul(np.transpose(self.b), x) + np.matmul(np.matmul(np.transpose(x), self.A), x)
@@ -61,7 +63,4 @@ class NewtonsMethod(mt.OptimizationMethod):
     def GetSecondGradientG(self, x):
     #Derivative is b + A*x + At*x
         return (np.transpose(self.A) + self.A)
-    
-method = NewtonsMethod('a', '1', 2, '1', 10.0)
-method.getUserInput()
-method.matrixBatchMode()
+
